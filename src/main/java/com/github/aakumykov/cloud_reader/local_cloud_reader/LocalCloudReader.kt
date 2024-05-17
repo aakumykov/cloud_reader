@@ -4,9 +4,8 @@ import com.github.aakumykov.cloud_reader.CloudReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
-import javax.inject.Inject
 
-class LocalCloudReader @Inject constructor(): CloudReader {
+class LocalCloudReader : CloudReader {
 
     override suspend fun getDownloadLink(absolutePath: String): Result<String> {
         return if (fileExistsSimple(absolutePath)) Result.success(absolutePath)

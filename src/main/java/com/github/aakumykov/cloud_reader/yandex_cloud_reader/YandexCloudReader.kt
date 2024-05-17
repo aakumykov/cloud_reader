@@ -5,8 +5,6 @@ import com.google.gson.Gson
 import com.yandex.disk.rest.json.ApiError
 import com.yandex.disk.rest.json.Link
 import com.yandex.disk.rest.json.Resource
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
@@ -16,8 +14,8 @@ import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 
-class YandexCloudReader @AssistedInject constructor(
-    @Assisted private val authToken: String,
+class YandexCloudReader(
+    private val authToken: String,
     private val okHttpClient: OkHttpClient,
     private val gson: Gson
 ) : CloudReader {

@@ -2,19 +2,18 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
-    id 'kotlin-kapt'
 }
 
 project.ext {
     artifactId = 'cloud_reader'
     groupId = 'com.github.aakumykov'
 
-    majorVersionCode = 0
-    minorVersionCode = 2
-    patchVersionCode = 2
+    majorVersionCode = 1
+    minorVersionCode = 0
+    patchVersionCode = 0
     suffix = "alpha"
 
-    versionCode = 9
+    versionCode = 10
 
     versionName = majorVersionCode + "." + minorVersionCode + "." + patchVersionCode + "-" + suffix
 }
@@ -62,9 +61,6 @@ dependencies {
     api 'com.squareup.okhttp3:okhttp:4.12.0'
 
     api 'com.yandex.android:disk-restapi-sdk:1.03'
-
-    api 'com.google.dagger:dagger:2.48.1'
-    kapt 'com.google.dagger:dagger-compiler:2.48.1'
 }
 
 publishing {
