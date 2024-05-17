@@ -1,9 +1,12 @@
-package com.github.aakumykov.cloud_reader
+package com.github.aakumykov.cloud_reader.yandex_cloud_reader
 
+import com.github.aakumykov.cloud_reader.CloudReader
 import com.google.gson.Gson
 import com.yandex.disk.rest.json.ApiError
 import com.yandex.disk.rest.json.Link
 import com.yandex.disk.rest.json.Resource
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
@@ -13,12 +16,11 @@ import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 
-class YandexCloudReader(
-    private val authToken: String,
+class YandexCloudReader @AssistedInject constructor(
+    @Assisted private val authToken: String,
     private val okHttpClient: OkHttpClient,
     private val gson: Gson
 ) : CloudReader {
-
 
     override suspend fun getDownloadLink(absolutePath: String): Result<String> {
         return try {
@@ -67,7 +69,7 @@ class YandexCloudReader(
 
 
     @Throws(IllegalArgumentException::class)
-    private fun httpRequest(url: HttpUrl, paramsMap: Map<HttpMethod,EmptyHttpParam>): Request {
+    private fun httpRequest(url: HttpUrl, paramsMap: Map<HttpMethod, EmptyHttpParam>): Request {
         return Request.Builder()
             .url(url)
             .apply {
@@ -102,7 +104,10 @@ class YandexCloudReader(
 
         val request = httpRequest(
             urlWithPath(RESOURCES_BASE_URL, absolutePath),
-            mapOf(HttpMethod.GET to EmptyHttpParam())
+            mapOf(
+                HttpMethod.HEADER to HttpParam("Authorization", authToken),
+                HttpMethod.GET to EmptyHttpParam(),
+            )
         )
 
         return okHttpClient.newCall(request).execute().use { response ->
@@ -157,7 +162,7 @@ class YandexCloudReader(
 
     companion object {
         private const val DISK_BASE_URL = "https://cloud-api.yandex.net/v1/disk"
-        private const val RESOURCES_BASE_URL = "${DISK_BASE_URL}/resources"
+        private const val RESOURCES_BASE_URL = "$DISK_BASE_URL/resources"
         private const val DOWNLOAD_BASE_URL = "$RESOURCES_BASE_URL/download"
     }
 
@@ -168,4 +173,6 @@ class YandexCloudReader(
 
     private open class EmptyHttpParam(val name: String = "", val value: String = "")
     private class HttpParam(name: String, value: String) : EmptyHttpParam(name, value)
+
+
 }

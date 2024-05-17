@@ -1,5 +1,6 @@
-package com.github.aakumykov.cloud_reader
+package com.github.aakumykov.cloud_reader.local_cloud_reader
 
+import com.github.aakumykov.cloud_reader.CloudReader
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
