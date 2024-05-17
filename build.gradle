@@ -8,12 +8,12 @@ project.ext {
     artifactId = 'cloud_reader'
     groupId = 'com.github.aakumykov'
 
-    majorVersionCode = 1
-    minorVersionCode = 0
+    majorVersionCode = 0
+    minorVersionCode = 1
     patchVersionCode = 0
     suffix = "alpha"
 
-    versionCode = 10
+    versionCode = 6
 
     versionName = majorVersionCode + "." + minorVersionCode + "." + patchVersionCode + "-" + suffix
 }
@@ -51,7 +51,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.core:core-ktx:1.13.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
 
     testImplementation 'junit:junit:4.13.2'
