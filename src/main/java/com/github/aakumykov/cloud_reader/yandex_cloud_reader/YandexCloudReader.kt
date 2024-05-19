@@ -2,6 +2,7 @@ package com.github.aakumykov.cloud_reader.yandex_cloud_reader
 
 import com.github.aakumykov.cloud_reader.CloudReader
 import com.google.gson.Gson
+import com.google.gson.JsonPrimitive
 import com.yandex.disk.rest.json.ApiError
 import com.yandex.disk.rest.json.Link
 import com.yandex.disk.rest.json.Resource
@@ -19,6 +20,8 @@ class YandexCloudReader(
     private val okHttpClient: OkHttpClient,
     private val gson: Gson
 ) : CloudReader {
+
+    constructor(authToken: String) : this(authToken, OkHttpClient(), Gson())
 
     override suspend fun getDownloadLink(absolutePath: String): Result<String> {
         return try {
