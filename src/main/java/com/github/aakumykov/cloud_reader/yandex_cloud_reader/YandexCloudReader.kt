@@ -17,11 +17,9 @@ import java.io.InputStream
 
 class YandexCloudReader(
     private val authToken: String,
-    private val okHttpClient: OkHttpClient,
-    private val gson: Gson
+    private val okHttpClient: OkHttpClient = OkHttpClient.Builder().build(),
+    private val gson: Gson = Gson()
 ) : CloudReader {
-
-    constructor(authToken: String) : this(authToken, OkHttpClient(), Gson())
 
     override suspend fun getDownloadLink(absolutePath: String): Result<String> {
         return try {
